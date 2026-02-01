@@ -62,6 +62,11 @@ Run a specific test case:
 dotnet test --filter "FullyQualifiedName~WeirdAlgorithmTests.Test" --filter "DisplayName~testNumber=1"
 ```
 
+Run tests with detailed output (shows each test as it runs and passes/fails):
+```bash
+dotnet test --filter "FullyQualifiedName~WeirdAlgorithmTests" --logger "console;verbosity=normal" -- xUnit.ShowPassingTests=true xUnit.ShowProgress=true
+```
+
 ## Adding a New Problem
 
 ### Step 1: Create the Problem Folder
