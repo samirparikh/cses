@@ -31,6 +31,6 @@ public class WeirdAlgorithmSolver : ISolver
         }
         result.Add(1);
 
-        return string.Join(" ", result);
+        return string.Join(" ", result) + " ";
     }
 }
