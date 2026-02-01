@@ -19,8 +19,10 @@ public class RepetitionsSolver : ISolver
         //Console.WriteLine($"Input Sequence: <{sequence}>");
         //Console.WriteLine($"Sequence Length: {sequence.Length}");
         //Console.WriteLine($"length: {"ABCCCDDDDDEE".Length}");
-        
-        for (int i = 0; i < sequence.Length; i++)
+
+        int i = 0;
+        while (i < sequence.Length - 1)
+        // for (int i = 0; i < sequence.Length; i++)
         {
             char currentNucleotide = sequence[i];
             int currentLength = 1;
@@ -45,6 +47,8 @@ public class RepetitionsSolver : ISolver
             {
                 break; // No need to check further
             }
+            
+            i += currentLength;
         }
 
         return Convert.ToString(longestRepeatLength);
