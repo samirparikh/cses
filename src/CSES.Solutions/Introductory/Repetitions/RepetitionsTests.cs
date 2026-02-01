@@ -21,9 +21,7 @@ public class RepetitionsTests : BaseSolverTests<RepetitionsSolver>
     [InlineData(9)]
     [InlineData(10)]
     [InlineData(11)]
-    // [InlineData(12)]
-    // [InlineData(13)]
-    // [InlineData(14)]
+    [InlineData(12)]
     public void Test(int testNumber)
     {
         RunTest(TestDataFolder, testNumber);
