@@ -67,6 +67,19 @@ Run tests with detailed output (shows each test as it runs and passes/fails):
 dotnet test --filter "FullyQualifiedName~WeirdAlgorithmTests" --logger "console;verbosity=normal" -- xUnit.ShowPassingTests=true xUnit.ShowProgress=true
 ```
 
+### Console Runner (Manual Input Files)
+
+If you want to run a solver directly against a test input file and see any
+`Console.WriteLine` output, use the small console runner project.
+
+Example (Missing Number, test case 1):
+```bash
+dotnet run --project src/CSES.Runner -- src/CSES.Solutions/Introductory/MissingNumber/TestData/1.in
+```
+
+The runner reads the file, executes the solver, and prints the solver output
+after any debug `Console.WriteLine` statements.
+
 ## Adding a New Problem
 
 ### Step 1: Create the Problem Folder
