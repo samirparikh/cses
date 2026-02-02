@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/src/">
     <Project Path="src/CSES.Core/CSES.Core.csproj" />
+    <Project Path="src/CSES.Runner/CSES.Runner.csproj" />
     <Project Path="src/CSES.Solutions/CSES.Solutions.csproj" />
   </Folder>
 </Solution>
