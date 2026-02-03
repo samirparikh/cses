@@ -1,0 +1,58 @@
+  Current Project Structure
+
+  3 separate projects:
+
+  1. CSES.Core (src/CSES.Core/CSES.Core.csproj)
+    - Contains shared interfaces and utilities
+    - Defines ISolver interface
+    - Has no dependencies on other projects
+  2. CSES.Solutions (src/CSES.Solutions/CSES.Solutions.csproj)
+    - Contains all problem solvers and tests
+    - References CSES.Core (depends on it)
+    - Includes xUnit testing framework
+  3. CSES.Runner (src/CSES.Runner/CSES.Runner.csproj)
+    - Console application for manual testing
+    - References both CSES.Core and CSES.Solutions
+    - Executable project (has a Main method)
+
+  How They Work Together
+
+  The .csproj files define:
+  - What kind of project it is (library, console app, test project)
+  - Dependencies on other projects
+  - NuGet packages used
+  - Target framework (.NET 8.0, .NET 10.0, etc.)
+
+  Your solution file (CSES.slnx) groups these three projects together so you can:
+  - Build all projects with one command: dotnet build
+  - Run all tests across projects: dotnet test
+  - Manage them together in an IDE
+
+  Why Multiple Projects?
+
+  This separation provides several benefits:
+
+  1. Separation of Concerns
+    - Core interfaces separated from implementations
+    - Test code separated from runner code
+  2. Reusability
+    - CSES.Core could be used by other projects
+    - Solutions can be tested and run separately
+  3. Clear Dependencies
+    - Core has no dependencies
+    - Solutions depends only on Core
+    - Runner depends on both
+  4. Build Efficiency
+    - Only changed projects need to rebuild
+    - Can build/test individual projects
+
+  Dependency Flow
+
+  CSES.Core (no dependencies)
+      ↑
+      |
+  CSES.Solutions (references Core)
+      ↑
+      |
+  CSES.Runner (references Core + Solutions)
+
