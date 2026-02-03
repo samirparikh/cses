@@ -1,3 +1,28 @@
+//   This file is designed for manual ad-hoc testing - you manually edit it to test
+//   whichever problem you're currently working on. The pattern is:
+// 
+//   1. Update the using statement to the category you're testing
+//   2. Update the solver instantiation to the specific solver you want to test
+// 
+//   For DynamicProgramming Testing
+// 
+//   When you want to test a DynamicProgramming problem, you would:
+// 
+//   using CSES.Solutions.DynamicProgramming;  // Change this line
+// 
+//   internal static class Program
+//   {
+//       private static int Main(string[] args)
+//       {
+//           // ... existing code ...
+// 
+//           var solver = new YourDynamicProgrammingSolver();  // Change this line
+//           var output = solver.Solve(input);
+// 
+//           // ... rest of code ...
+//       }
+//   }
+
 using CSES.Solutions.IntroductoryProblems;
 
 internal static class Program
