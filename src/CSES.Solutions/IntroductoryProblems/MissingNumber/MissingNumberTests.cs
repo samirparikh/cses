@@ -3,11 +3,11 @@ using Xunit;
 namespace CSES.Solutions.Introductory;
 
 /// <summary>
-/// Tests for the Repetitions problem.
+/// Tests for the MissingNumber problem.
 /// </summary>
-public class RepetitionsTests : BaseSolverTests<RepetitionsSolver>
+public class MissingNumberTests : BaseSolverTests<MissingNumberSolver>
 {
-    private const string TestDataFolder = "Introductory/Repetitions/TestData";
+    private const string TestDataFolder = "IntroductoryProblems/MissingNumber/TestData";
 
     [Theory]
     [InlineData(1)]
@@ -22,6 +22,8 @@ public class RepetitionsTests : BaseSolverTests<RepetitionsSolver>
     [InlineData(10)]
     [InlineData(11)]
     [InlineData(12)]
+    [InlineData(13)]
+    [InlineData(14)]
     public void Test(int testNumber)
     {
         RunTest(TestDataFolder, testNumber);

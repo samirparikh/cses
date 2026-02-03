@@ -3,11 +3,11 @@ using Xunit;
 namespace CSES.Solutions.Introductory;
 
 /// <summary>
-/// Tests for the IncreasingArray problem.
+/// Tests for the Weird Algorithm problem.
 /// </summary>
-public class IncreasingArrayTests : BaseSolverTests<IncreasingArraySolver>
+public class WeirdAlgorithmTests : BaseSolverTests<WeirdAlgorithmSolver>
 {
-    private const string TestDataFolder = "Introductory/IncreasingArray/TestData";
+    private const string TestDataFolder = "IntroductoryProblems/WeirdAlgorithm/TestData";
 
     [Theory]
     [InlineData(1)]
@@ -17,6 +17,13 @@ public class IncreasingArrayTests : BaseSolverTests<IncreasingArraySolver>
     [InlineData(5)]
     [InlineData(6)]
     [InlineData(7)]
+    [InlineData(8)]
+    [InlineData(9)]
+    [InlineData(10)]
+    [InlineData(11)]
+    [InlineData(12)]
+    [InlineData(13)]
+    [InlineData(14)]
     public void Test(int testNumber)
     {
         RunTest(TestDataFolder, testNumber);
