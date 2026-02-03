@@ -50,7 +50,7 @@ public abstract class BaseSolverTests<TSolver> where TSolver : ISolver, new()
         var inputFiles = Directory.GetFiles(testDataFolder, "*.in")
             .Select(Path.GetFileNameWithoutExtension)
             .Where(name => int.TryParse(name, out _))
-            .Select(int.Parse)
+            .Select(name => int.Parse(name!))
             .OrderBy(n => n);
 
         foreach (var testNumber in inputFiles)
