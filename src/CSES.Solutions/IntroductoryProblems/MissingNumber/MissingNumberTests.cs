@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace CSES.Solutions.Introductory;
+namespace CSES.Solutions.IntroductoryProblems;
 
 /// <summary>
 /// Tests for the MissingNumber problem.

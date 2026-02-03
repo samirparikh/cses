@@ -1,6 +1,6 @@
 using CSES.Core;
 
-namespace CSES.Solutions.Introductory;
+namespace CSES.Solutions.IntroductoryProblems;
 
 /// <summary>
 /// Solver for CSES "Weird Algorithm" problem.

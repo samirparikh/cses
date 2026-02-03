@@ -1,4 +1,4 @@
-using CSES.Solutions.Introductory;
+using CSES.Solutions.IntroductoryProblems;
 
 internal static class Program
 {
