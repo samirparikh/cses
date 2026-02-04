@@ -19,20 +19,22 @@ public class DiceCombinationsSolver : ISolver
 {
     public string Solve(string input)
     {
-        int n = int.Parse(input.Trim());
         const int MOD = 1_000_000_007;
-        long[] dp = new long[n + 1];
-        dp[0] = 1;
+        int n = int.Parse(input.Trim());
+
+        if (n == 0) return "1";
+        
+        long[] ways = new long[n + 1];
+        ways[0] = 1;
+       
         for (int i = 1; i <= n; i++)
         {
-            for (int dice = 1; dice <= 6; dice++)
+            for (int dice = 1; dice <= Math.Min(6, i); dice++)
             {
-                if (i - dice >= 0)
-                {
-                    dp[i] = (dp[i] + dp[i - dice]) % MOD;
-                }
+                ways[i] = (ways[i] + ways[i - dice]) % MOD;
             }
         }
-        return dp[n].ToString();
+
+        return ways[n].ToString();
     }
 }
