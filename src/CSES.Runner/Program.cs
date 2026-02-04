@@ -23,7 +23,7 @@
 //       }
 //   }
 
-using CSES.Solutions.IntroductoryProblems;
+using CSES.Solutions.DynamicProgramming;
 
 internal static class Program
 {
@@ -44,7 +44,7 @@ internal static class Program
         }
 
         var input = File.ReadAllText(inputPath);
-        var solver = new MissingNumberSolver();
+        var solver = new DiceCombinationsSolver();
         var output = solver.Solve(input);
 
         Console.WriteLine("---- Solver Output ----");
