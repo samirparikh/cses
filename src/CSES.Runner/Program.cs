@@ -44,7 +44,7 @@ internal static class Program
         }
 
         var input = File.ReadAllText(inputPath);
-        var solver = new DiceCombinationsSolver();
+        var solver = new MinimizingCoinsSolver();
         var output = solver.Solve(input);
 
         Console.WriteLine("---- Solver Output ----");
