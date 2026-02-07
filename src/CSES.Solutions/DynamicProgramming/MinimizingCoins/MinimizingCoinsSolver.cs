@@ -32,70 +32,22 @@ public class MinimizingCoinsSolver : ISolver
         int[] coins = lines[1].Split(' ', StringSplitOptions.RemoveEmptyEntries)
             .Select(int.Parse)
             .ToArray();
-        Array.Sort(coins);
-        Array.Reverse(coins);
-        List<int> answers = new List<int>();
 
-        /*
-        int minCoins = 0;
-        // Debug (don’t print in final CSES submission)
-        Console.Error.WriteLine($"numCoins: {numCoins}, desiredSum: {desiredSum}");
-        Console.Error.WriteLine($"coins: {string.Join(", ", coins)}");
+        int[] dp = new int[desiredSum + 1];
+        Array.Fill(dp, int.MaxValue);
+        dp[0] = 0;
 
-        while (desiredSum > 0)
+        for (int coin = 0; coin < numCoins; coin++)
         {
-            foreach (int coin in coins)
+            for (int sum = 1; sum <= desiredSum; sum++)
             {
-                Console.Error.WriteLine($"desired sum = {desiredSum}");
-                Console.Error.WriteLine($"processing coin {coin}");
-                minCoins += desiredSum / coin;
-                desiredSum = desiredSum % coin;
-                Console.Error.WriteLine($"min coins is now {minCoins}");
-                Console.Error.WriteLine($"desired sum = {desiredSum}");
-                Console.Error.WriteLine("-------------");
+                //if (coins[coin] > sum) continue;
+                if (coins[coin] > sum || dp[sum - coins[coin]] == int.MaxValue) continue;
+                dp[sum] = Math.Min(dp[sum], dp[sum - coins[coin]] + 1);
             }
         }
 
-        Console.Error.WriteLine($"min coins = {minCoins}");
-        */
-
-        for (int i = 0; i < coins.Length; i++)
-        {
-            int minCoins = 0;
-            int sum = desiredSum;
-            Console.Error.WriteLine("-----------");
-            Console.Error.WriteLine($"starting at i = {i}");
-            for (int j = i; j < coins.Length; j++)
-            {
-                Console.Error.WriteLine($"desired sum = {sum}");
-                Console.Error.WriteLine($"processing coin {coins[j]}");
-                minCoins += sum / coins[j];
-                sum = sum % coins[j];
-                Console.Error.WriteLine($"min coins is now {minCoins}");
-                Console.Error.WriteLine($"desired sum = {sum}");
-                Console.Error.WriteLine("-------------");
-            }
-            if (sum == 0)
-            {
-                answers.Add(minCoins);
-            }
-        }
-        Console.Error.WriteLine($"answers {string.Join(", ", answers)}");
-        if (answers.Count == 0)
-        {
-            return "-1";
-        }
-        else
-        {
-
-            int min = answers[0];
-            for (int i = 1; i < answers.Count; i++)
-            {
-                if (answers[i] < min) min = answers[i];
-            }
-            Console.Error.WriteLine($"answer {min}");
-
-            return min.ToString();
-        }
+        if (dp[desiredSum] != int.MaxValue) return dp[desiredSum].ToString();
+        return "-1";
     }
 }
