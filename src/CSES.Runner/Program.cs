@@ -23,7 +23,7 @@
 //       }
 //   }
 
-using CSES.Solutions.DynamicProgramming;
+using CSES.Solutions.RangeQueries;
 
 internal static class Program
 {
@@ -44,7 +44,7 @@ internal static class Program
         }
 
         var input = File.ReadAllText(inputPath);
-        var solver = new MinimizingCoinsSolver();
+        var solver = new HotelQueriesSolver();
         var output = solver.Solve(input);
 
         Console.WriteLine("---- Solver Output ----");
