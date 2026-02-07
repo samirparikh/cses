@@ -36,12 +36,10 @@ public class MinimizingCoinsSolver : ISolver
         Array.Reverse(coins);
         List<int> answers = new List<int>();
 
-        /*
-        int minCoins = 0;
         // Debug (don’t print in final CSES submission)
         Console.Error.WriteLine($"numCoins: {numCoins}, desiredSum: {desiredSum}");
         Console.Error.WriteLine($"coins: {string.Join(", ", coins)}");
-
+        /*
         while (desiredSum > 0)
         {
             foreach (int coin in coins)
@@ -63,17 +61,17 @@ public class MinimizingCoinsSolver : ISolver
         {
             int minCoins = 0;
             int sum = desiredSum;
-            Console.Error.WriteLine("-----------");
-            Console.Error.WriteLine($"starting at i = {i}");
+            //Console.Error.WriteLine("-----------");
+            //Console.Error.WriteLine($"starting at i = {i}");
             for (int j = i; j < coins.Length; j++)
             {
-                Console.Error.WriteLine($"desired sum = {sum}");
-                Console.Error.WriteLine($"processing coin {coins[j]}");
+                //Console.Error.WriteLine($"desired sum = {sum}");
+                //Console.Error.WriteLine($"processing coin {coins[j]}");
                 minCoins += sum / coins[j];
                 sum = sum % coins[j];
-                Console.Error.WriteLine($"min coins is now {minCoins}");
-                Console.Error.WriteLine($"desired sum = {sum}");
-                Console.Error.WriteLine("-------------");
+                //Console.Error.WriteLine($"min coins is now {minCoins}");
+                //Console.Error.WriteLine($"desired sum = {sum}");
+                //Console.Error.WriteLine("-------------");
             }
             if (sum == 0)
             {
