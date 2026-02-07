@@ -3,9 +3,9 @@ using Xunit;
 namespace CSES.Solutions.RangeQueries;
 
 /// <summary>
-/// Tests for the MinimizingCoins problem.
+/// Tests for the Hotel Queries problem.
 /// </summary>
-public class MinimizingCoinsTests : BaseSolverTests<MinimizingCoinsSolver>
+public class HotelQueriesTests : BaseSolverTests<HotelQueriesSolver>
 {
     private const string TestDataFolder = "RangeQueries/HotelQueries/TestData";
 
