@@ -36,9 +36,28 @@ public class MinimizingCoinsSolver : ISolver
         Array.Reverse(coins);
         List<int> answers = new List<int>();
 
+        /*
+        int minCoins = 0;
         // Debug (don’t print in final CSES submission)
         Console.Error.WriteLine($"numCoins: {numCoins}, desiredSum: {desiredSum}");
         Console.Error.WriteLine($"coins: {string.Join(", ", coins)}");
+
+        while (desiredSum > 0)
+        {
+            foreach (int coin in coins)
+            {
+                Console.Error.WriteLine($"desired sum = {desiredSum}");
+                Console.Error.WriteLine($"processing coin {coin}");
+                minCoins += desiredSum / coin;
+                desiredSum = desiredSum % coin;
+                Console.Error.WriteLine($"min coins is now {minCoins}");
+                Console.Error.WriteLine($"desired sum = {desiredSum}");
+                Console.Error.WriteLine("-------------");
+            }
+        }
+
+        Console.Error.WriteLine($"min coins = {minCoins}");
+        */
 
         for (int i = 0; i < coins.Length; i++)
         {
