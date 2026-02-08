@@ -52,25 +52,31 @@ public class HotelQueriesSolver : ISolver
             .ToArray();
 
         int[] assignedHotels = new int[numGroups];
+        int firstFreeRoom = 0;
 
-        Console.WriteLine($"Number of hotels: {numHotels}, Number of groups: {numGroups}");
-        Console.WriteLine($"Free rooms in hotels: {string.Join(", ", freeRooms)}");
-        Console.WriteLine($"Group sizes: {string.Join(", ", groupSizes)}");
+        //Console.WriteLine($"Number of hotels: {numHotels}, Number of groups: {numGroups}");
+        //Console.WriteLine($"Free rooms in hotels: {string.Join(", ", freeRooms)}");
+        //Console.WriteLine($"Group sizes: {string.Join(", ", groupSizes)}");
 
         for (int group = 0; group < numGroups; group++)
         {
-            Console.WriteLine($"processing group of size {groupSizes[group]} ({group + 1}/{numGroups})");
-            Console.WriteLine($"Current free rooms: {string.Join(", ", freeRooms)}");
+            //Console.WriteLine($"processing group of size {groupSizes[group]} ({group + 1}/{numGroups})");
+            //Console.WriteLine($"Current free rooms: {string.Join(", ", freeRooms)}");
             int assignedHotel = 0;
 
-            for (int hotel = 0; hotel < numHotels; hotel++)
+            for (int hotel = firstFreeRoom; hotel < numHotels; hotel++)
             {
-                Console.WriteLine($"availability in hotel {hotel + 1}/{numHotels} = {freeRooms[hotel]}");
+                //Console.WriteLine($"availability in hotel {hotel + 1}/{numHotels} = {freeRooms[hotel]}");
                 if (groupSizes[group] <= freeRooms[hotel])
                 {
                     assignedHotel = hotel + 1;
                     freeRooms[hotel] -= groupSizes[group];
-                    Console.WriteLine($"assigning group {group + 1} to hotel {hotel + 1} which now has availability of {freeRooms[hotel]}");
+                    if (freeRooms[hotel] == 0 && hotel == firstFreeRoom)
+                    {
+                        firstFreeRoom++;
+                        //Console.WriteLine($"updating first free room to hotel {firstFreeRoom + 1}");
+                    }
+                    //Console.WriteLine($"assigning group {group + 1} to hotel {hotel + 1} which now has availability of {freeRooms[hotel]}");
                     break;
                 }
             }
