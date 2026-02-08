@@ -60,17 +60,17 @@ public class HotelQueriesSolver : ISolver
         for (int group = 0; group < numGroups; group++)
         {
             Console.WriteLine($"processing group of size {groupSizes[group]} ({group + 1}/{numGroups})");
-            //Console.WriteLine($"Current free rooms: {string.Join(", ", freeRooms)}");
+            Console.WriteLine($"Current free rooms: {string.Join(", ", freeRooms)}");
             int assignedHotel = 0;
 
             for (int hotel = 0; hotel < numHotels; hotel++)
             {
-                //Console.WriteLine($"availability in hotel {hotel + 1}/{numHotels} = {freeRooms[hotel]}");
+                Console.WriteLine($"availability in hotel {hotel + 1}/{numHotels} = {freeRooms[hotel]}");
                 if (groupSizes[group] <= freeRooms[hotel])
                 {
                     assignedHotel = hotel + 1;
                     freeRooms[hotel] -= groupSizes[group];
-                    //Console.WriteLine($"assigning group {group} to hotel {hotel} which now has availability of {freeRooms[hotel]}");
+                    Console.WriteLine($"assigning group {group + 1} to hotel {hotel + 1} which now has availability of {freeRooms[hotel]}");
                     break;
                 }
             }
