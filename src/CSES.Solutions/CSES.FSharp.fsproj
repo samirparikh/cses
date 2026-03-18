@@ -25,15 +25,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="**\TestData\*.*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Compile Include="BaseSolverTests.fs" />
+    <Compile Include="IntroductoryProblems/WeirdAlgorithm/FSharp/WeirdAlgorithmSolver.fs" />
+    <Compile Include="IntroductoryProblems/WeirdAlgorithm/FSharp/WeirdAlgorithmTests.fs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="BaseSolverTests.fs" />
-    <Compile Include="IntroductoryProblems/WeirdAlgorithm/WeirdAlgorithmSolver.fs" />
-    <Compile Include="IntroductoryProblems/WeirdAlgorithm/WeirdAlgorithmTests.fs" />
+    <Content Include="**\TestData\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

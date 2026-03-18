@@ -1,4 +1,4 @@
-namespace CSES.FSharp.Solutions
+namespace CSES.Solutions
 
 open System
 open System.IO

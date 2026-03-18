@@ -1,4 +1,4 @@
-namespace CSES.FSharp.Solutions.IntroductoryProblems
+namespace CSES.Solutions.IntroductoryProblems
 
 open CSES.Core
 

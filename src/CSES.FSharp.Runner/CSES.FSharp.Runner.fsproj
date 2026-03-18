@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CSES.FSharp.Solutions\CSES.FSharp.Solutions.fsproj" />
+    <ProjectReference Include="..\CSES.Solutions\CSES.FSharp.fsproj" />
   </ItemGroup>
 
   <ItemGroup>

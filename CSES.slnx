@@ -1,9 +1,9 @@
 <Solution>
   <Folder Name="/src/">
     <Project Path="src/CSES.Core/CSES.Core.csproj" />
-    <Project Path="src/CSES.Runner/CSES.Runner.csproj" />
-    <Project Path="src/CSES.Solutions/CSES.Solutions.csproj" />
-    <Project Path="src/CSES.FSharp.Solutions/CSES.FSharp.Solutions.fsproj" />
+    <Project Path="src/CSES.Solutions/CSES.CSharp.csproj" />
+    <Project Path="src/CSES.Solutions/CSES.FSharp.fsproj" />
+    <Project Path="src/CSES.CSharp.Runner/CSES.CSharp.Runner.csproj" />
     <Project Path="src/CSES.FSharp.Runner/CSES.FSharp.Runner.fsproj" />
   </Folder>
 </Solution>

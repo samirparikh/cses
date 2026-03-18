@@ -7,6 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CSES.Solutions\CSES.Solutions.csproj" />
+    <ProjectReference Include="..\CSES.Solutions\CSES.CSharp.csproj" />
   </ItemGroup>
 </Project>

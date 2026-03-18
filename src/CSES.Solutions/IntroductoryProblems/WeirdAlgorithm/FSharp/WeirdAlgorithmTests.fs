@@ -1,10 +1,10 @@
-namespace CSES.FSharp.Solutions.IntroductoryProblems
+namespace CSES.Solutions.IntroductoryProblems
 
 open Xunit
 
 /// Tests for the Weird Algorithm problem.
 type WeirdAlgorithmTests() =
-    inherit CSES.FSharp.Solutions.BaseSolverTests<WeirdAlgorithmSolver>()
+    inherit CSES.Solutions.BaseSolverTests<WeirdAlgorithmSolver>()
 
     static let testDataFolder = "IntroductoryProblems/WeirdAlgorithm/TestData"
 

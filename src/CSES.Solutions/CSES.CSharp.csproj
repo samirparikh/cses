@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,6 +24,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CSES.Core\CSES.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="BaseSolverTests.cs" />
+    <Compile Include="**\CSharp\*.cs" />
   </ItemGroup>
 
   <ItemGroup>
