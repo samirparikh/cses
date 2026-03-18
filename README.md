@@ -1,6 +1,6 @@
 # CSES Problem Solutions
 
-Solutions to problems from the [CSES Problem Set](https://cses.fi/problemset/) written in C#.
+Solutions to problems from the [CSES Problem Set](https://cses.fi/problemset/) written in C# and F#.
 
 ## Table of Contents
 
@@ -8,14 +8,18 @@ Solutions to problems from the [CSES Problem Set](https://cses.fi/problemset/) w
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Building the Project](#building-the-project)
-  - [Running Tests](#running-tests)
+- [Running Tests](#running-tests)
+  - [Run All Tests](#run-all-tests)
+  - [Run Tests by Language](#run-tests-by-language)
+  - [Run Tests by Problem](#run-tests-by-problem)
+  - [Run Tests by Category](#run-tests-by-category)
+  - [Verbose Test Output](#verbose-test-output)
 - [Console Runner (Manual Testing)](#console-runner-manual-testing)
+  - [C# Runner](#c-runner)
+  - [F# Runner](#f-runner)
 - [Adding a New Problem](#adding-a-new-problem)
-  - [Step 1: Create the Problem Folder](#step-1-create-the-problem-folder)
-  - [Step 2: Create the Solver](#step-2-create-the-solver)
-  - [Step 3: Create the Test Class](#step-3-create-the-test-class)
-  - [Step 4: Add Test Data](#step-4-add-test-data)
-  - [Step 5: Run the Tests](#step-5-run-the-tests)
+  - [Adding a C# Solution](#adding-a-c-solution)
+  - [Adding an F# Solution](#adding-an-f-solution)
 - [Namespace Conventions](#namespace-conventions)
 - [Features](#features)
 - [Auto-Discovery Alternative](#auto-discovery-alternative)
@@ -26,33 +30,42 @@ Solutions to problems from the [CSES Problem Set](https://cses.fi/problemset/) w
 ```
 cses/
 ├── src/
-│   ├── CSES.Core/                    # Core interfaces and utilities
-│   │   ├── ISolver.cs                # Interface all solvers implement
+│   ├── CSES.Core/                        # Core interfaces (shared by C# and F#)
+│   │   ├── ISolver.cs                    # Interface all solvers implement
 │   │   └── CSES.Core.csproj
-│   ├── CSES.Solutions/               # All problem solvers, tests, and test data
-│   │   ├── BaseSolverTests.cs        # Base test class with helpers
-│   │   ├── IntroductoryProblems/     # Category folder
-│   │   │   ├── WeirdAlgorithm/       # Problem folder
-│   │   │   │   ├── WeirdAlgorithmSolver.cs
-│   │   │   │   ├── WeirdAlgorithmTests.cs
-│   │   │   │   └── TestData/         # Test input/output files
-│   │   │   │       ├── 1.in
-│   │   │   │       ├── 1.out
-│   │   │   │       ├── 2.in
-│   │   │   │       └── 2.out
-│   │   │   └── MissingNumber/
-│   │   │       └── ...
-│   │   ├── DynamicProgramming/       # Another category folder
-│   │   │   └── ...
-│   │   └── CSES.Solutions.csproj
-│   └── CSES.Runner/                  # Console runner for manual testing
-│       ├── Program.cs
-│       └── CSES.Runner.csproj
+│   ├── CSES.Solutions/                   # All problem solvers, tests, and test data
+│   │   ├── CSES.CSharp.csproj            # C# test project
+│   │   ├── CSES.FSharp.fsproj            # F# test project
+│   │   ├── BaseSolverTests.cs            # C# base test class
+│   │   ├── BaseSolverTests.fs            # F# base test class
+│   │   ├── IntroductoryProblems/         # Category folder
+│   │   │   └── WeirdAlgorithm/           # Problem folder
+│   │   │       ├── CSharp/               # C# implementation
+│   │   │       │   ├── WeirdAlgorithmSolver.cs
+│   │   │       │   └── WeirdAlgorithmTests.cs
+│   │   │       ├── FSharp/               # F# implementation
+│   │   │       │   ├── WeirdAlgorithmSolver.fs
+│   │   │       │   └── WeirdAlgorithmTests.fs
+│   │   │       └── TestData/             # Shared test data
+│   │   │           ├── 1.in
+│   │   │           ├── 1.out
+│   │   │           └── ...
+│   │   └── DynamicProgramming/           # Another category folder
+│   │       └── ...
+│   ├── CSES.CSharp.Runner/               # C# console runner for manual testing
+│   │   ├── Program.cs
+│   │   └── CSES.CSharp.Runner.csproj
+│   └── CSES.FSharp.Runner/               # F# console runner for manual testing
+│       ├── Program.fs
+│       └── CSES.FSharp.Runner.fsproj
 ├── CSES.slnx
 └── README.md
 ```
 
-**Note:** Each problem has its own folder containing the solver, tests, and test data all in one place for easy navigation.
+**Key Points:**
+- Each problem has `CSharp/` and/or `FSharp/` subfolders for language-specific implementations
+- `TestData/` is shared between both languages, avoiding duplication
+- Both C# and F# solvers implement the same `ISolver` interface from `CSES.Core`
 
 ## Getting Started
 
@@ -66,40 +79,70 @@ cses/
 dotnet build
 ```
 
-### Running Tests
+## Running Tests
 
-Run all tests:
+### Run All Tests
+
+Run all tests for both C# and F#:
 ```bash
 dotnet test
 ```
 
-Run tests for a specific problem:
+### Run Tests by Language
+
+Run only C# tests:
 ```bash
-dotnet test --filter "FullyQualifiedName~WeirdAlgorithmTests"
+dotnet test src/CSES.Solutions/CSES.CSharp.csproj
 ```
 
-Run tests for a specific category:
+Run only F# tests:
 ```bash
-dotnet test --filter "FullyQualifiedName~Introductory"
+dotnet test src/CSES.Solutions/CSES.FSharp.fsproj
 ```
 
-Run a specific test case:
+### Run Tests by Problem
+
+Run tests for a specific problem (both languages):
 ```bash
-dotnet test --filter "FullyQualifiedName~WeirdAlgorithmTests.Test" --filter "DisplayName~testNumber=1"
+dotnet test --filter "FullyQualifiedName~WeirdAlgorithm"
 ```
 
-Run tests with detailed output (shows each test as it runs and passes/fails):
+Run tests for a specific problem (C# only):
 ```bash
-dotnet test --filter "FullyQualifiedName~WeirdAlgorithmTests" --logger "console;verbosity=normal" -- xUnit.ShowPassingTests=true xUnit.ShowProgress=true
+dotnet test src/CSES.Solutions/CSES.CSharp.csproj --filter "FullyQualifiedName~WeirdAlgorithm"
+```
+
+Run tests for a specific problem (F# only):
+```bash
+dotnet test src/CSES.Solutions/CSES.FSharp.fsproj --filter "FullyQualifiedName~WeirdAlgorithm"
+```
+
+### Run Tests by Category
+
+Run tests for an entire category (both languages):
+```bash
+dotnet test --filter "FullyQualifiedName~IntroductoryProblems"
+```
+
+Run tests for a category (C# only):
+```bash
+dotnet test src/CSES.Solutions/CSES.CSharp.csproj --filter "FullyQualifiedName~DynamicProgramming"
+```
+
+### Verbose Test Output
+
+Run tests with detailed output showing each test as it runs:
+```bash
+dotnet test --filter "FullyQualifiedName~WeirdAlgorithm" --logger "console;verbosity=normal"
 ```
 
 ## Console Runner (Manual Testing)
 
-The `CSES.Runner` project allows you to run a solver directly against a test input file and see any `Console.WriteLine` debug output.
+The runner projects allow you to run a solver directly against a test input file and see any debug output.
 
-**Usage:**
+### C# Runner
 
-1. Edit `src/CSES.Runner/Program.cs` to import the category namespace and instantiate the solver you want to test:
+1. Edit `src/CSES.CSharp.Runner/Program.cs` to import the category namespace and instantiate your solver:
    ```csharp
    using CSES.Solutions.IntroductoryProblems;  // Change to your category
 
@@ -108,24 +151,40 @@ The `CSES.Runner` project allows you to run a solver directly against a test inp
 
 2. Run the solver with an input file:
    ```bash
-   dotnet run --project src/CSES.Runner -- src/CSES.Solutions/IntroductoryProblems/MissingNumber/TestData/1.in
+   dotnet run --project src/CSES.CSharp.Runner -- src/CSES.Solutions/IntroductoryProblems/MissingNumber/TestData/1.in
    ```
 
-The runner reads the file, executes the solver, and prints the solver output after any debug `Console.WriteLine` statements. This is useful for debugging specific test cases.
+### F# Runner
+
+1. Edit `src/CSES.FSharp.Runner/Program.fs` to instantiate your solver:
+   ```fsharp
+   open CSES.Solutions.IntroductoryProblems
+
+   let solver: ISolver option = Some (WeirdAlgorithmSolver() :> ISolver)
+   ```
+
+2. Run the solver with an input file:
+   ```bash
+   dotnet run --project src/CSES.FSharp.Runner -- src/CSES.Solutions/IntroductoryProblems/WeirdAlgorithm/TestData/1.in
+   ```
 
 ## Adding a New Problem
 
-### Step 1: Create the Problem Folder
+### Adding a C# Solution
 
-Create a new folder for your problem in `src/CSES.Solutions/{Category}/{ProblemName}/`
+#### Step 1: Create the Problem Folder
 
-For example: `src/CSES.Solutions/IntroductoryProblems/MissingNumber/`
+Create the folder structure:
+```
+src/CSES.Solutions/{Category}/{ProblemName}/CSharp/
+src/CSES.Solutions/{Category}/{ProblemName}/TestData/
+```
 
-### Step 2: Create the Solver
+Example: `src/CSES.Solutions/IntroductoryProblems/MissingNumber/CSharp/`
 
-Create the solver class in the problem folder:
+#### Step 2: Create the Solver
 
-`src/CSES.Solutions/{Category}/{ProblemName}/{ProblemName}Solver.cs`
+Create `{ProblemName}Solver.cs` in the `CSharp/` folder:
 
 ```csharp
 using CSES.Core;
@@ -147,11 +206,9 @@ public class ProblemNameSolver : ISolver
 }
 ```
 
-### Step 3: Create the Test Class
+#### Step 3: Create the Test Class
 
-Create the test class in the same problem folder:
-
-`src/CSES.Solutions/{Category}/{ProblemName}/{ProblemName}Tests.cs`
+Create `{ProblemName}Tests.cs` in the `CSharp/` folder:
 
 ```csharp
 using Xunit;
@@ -173,61 +230,122 @@ public class ProblemNameTests : BaseSolverTests<ProblemNameSolver>
 }
 ```
 
-### Step 4: Add Test Data
+#### Step 4: Add Test Data
 
-Create a `TestData` folder in the problem folder and add test files:
-
-`src/CSES.Solutions/{Category}/{ProblemName}/TestData/`
+Add test files to the `TestData/` folder:
 - `1.in`, `1.out`
 - `2.in`, `2.out`
 - etc.
 
-The `.in` files contain the input and `.out` files contain the expected output.
-
-**Complete Example Structure:**
-```
-src/CSES.Solutions/IntroductoryProblems/MissingNumber/
-├── MissingNumberSolver.cs
-├── MissingNumberTests.cs
-└── TestData/
-    ├── 1.in
-    ├── 1.out
-    ├── 2.in
-    └── 2.out
-```
-
-### Step 5: Run the Tests
+#### Step 5: Run the Tests
 
 ```bash
-dotnet test --filter "FullyQualifiedName~ProblemNameTests"
+dotnet test src/CSES.Solutions/CSES.CSharp.csproj --filter "FullyQualifiedName~ProblemName"
+```
+
+### Adding an F# Solution
+
+#### Step 1: Create the Problem Folder
+
+Create the folder structure (TestData may already exist from C#):
+```
+src/CSES.Solutions/{Category}/{ProblemName}/FSharp/
+src/CSES.Solutions/{Category}/{ProblemName}/TestData/   # If not already present
+```
+
+#### Step 2: Create the Solver
+
+Create `{ProblemName}Solver.fs` in the `FSharp/` folder:
+
+```fsharp
+namespace CSES.Solutions.CategoryName
+
+open CSES.Core
+
+/// Solver for CSES "Problem Name" problem.
+/// Problem: https://cses.fi/problemset/task/XXXX
+type ProblemNameSolver() =
+    interface ISolver with
+        member _.Solve(input: string) =
+            // Parse input
+            // Solve problem
+            // Return output
+            ""
+```
+
+#### Step 3: Create the Test Class
+
+Create `{ProblemName}Tests.fs` in the `FSharp/` folder:
+
+```fsharp
+namespace CSES.Solutions.CategoryName
+
+open Xunit
+
+type ProblemNameTests() =
+    inherit CSES.Solutions.BaseSolverTests<ProblemNameSolver>()
+
+    static let testDataFolder = "CategoryName/ProblemName/TestData"
+
+    [<Theory>]
+    [<InlineData(1)>]
+    [<InlineData(2)>]
+    // Add more test numbers as needed
+    member this.Test(testNumber: int) =
+        this.RunTest(testDataFolder, testNumber)
+```
+
+#### Step 4: Update the F# Project File
+
+Add the new `.fs` files to `src/CSES.Solutions/CSES.FSharp.fsproj` in the `<Compile>` section. **F# requires explicit file ordering**, so add them after `BaseSolverTests.fs`:
+
+```xml
+<ItemGroup>
+  <Compile Include="BaseSolverTests.fs" />
+  <Compile Include="CategoryName/ProblemName/FSharp/ProblemNameSolver.fs" />
+  <Compile Include="CategoryName/ProblemName/FSharp/ProblemNameTests.fs" />
+</ItemGroup>
+```
+
+#### Step 5: Run the Tests
+
+```bash
+dotnet test src/CSES.Solutions/CSES.FSharp.fsproj --filter "FullyQualifiedName~ProblemName"
 ```
 
 ## Namespace Conventions
 
-The project follows a consistent namespace pattern:
+Both C# and F# use the same namespace pattern:
 
-- **Base classes** at the root level use `CSES.Solutions` (e.g., `BaseSolverTests`)
-- **Category-specific code** uses `CSES.Solutions.{CategoryName}` (e.g., `CSES.Solutions.IntroductoryProblems`, `CSES.Solutions.DynamicProgramming`)
-- **All files within a category folder** share the same namespace, regardless of problem-specific subdirectories
-- **Individual problems** are organized in physical folders but don't create additional namespace levels
+- **Base classes** use `CSES.Solutions` (e.g., `BaseSolverTests`)
+- **Category-specific code** uses `CSES.Solutions.{CategoryName}` (e.g., `CSES.Solutions.IntroductoryProblems`)
+- **Language subfolders** (`CSharp/`, `FSharp/`) don't create additional namespace levels
 
 **Examples:**
 
 ```csharp
-// IntroductoryProblems/WeirdAlgorithm/WeirdAlgorithmSolver.cs
+// IntroductoryProblems/WeirdAlgorithm/CSharp/WeirdAlgorithmSolver.cs
 namespace CSES.Solutions.IntroductoryProblems;
-
-// DynamicProgramming/CoinCombinations/CoinCombinationsSolver.cs
-namespace CSES.Solutions.DynamicProgramming;
 ```
 
-This pattern keeps related code together while avoiding namespace pollution from individual problems.
+```fsharp
+// IntroductoryProblems/WeirdAlgorithm/FSharp/WeirdAlgorithmSolver.fs
+namespace CSES.Solutions.IntroductoryProblems
+```
+
+This allows C# and F# implementations to coexist in the same namespace.
 
 ## Features
 
+### Multi-Language Support
+
+- Solve problems in C#, F#, or both
+- Shared test data between implementations
+- Same `ISolver` interface for both languages
+
 ### Reusable Test Framework
 
-The `BaseSolverTests<T>` class provides:
+The `BaseSolverTests<T>` class (available in both C# and F#) provides:
 - Automatic test file discovery
 - Input/output comparison
 - Clear error messages
@@ -237,22 +355,21 @@ The `BaseSolverTests<T>` class provides:
 
 Use xunit filters to run:
 - All tests: `dotnet test`
-- Tests for one category: `dotnet test --filter "FullyQualifiedName~IntroductoryProblems"`
-- Tests for one problem: `dotnet test --filter "FullyQualifiedName~WeirdAlgorithmTests"`
-- A specific test case: Add additional filters for test numbers
+- One language: `dotnet test src/CSES.Solutions/CSES.CSharp.csproj`
+- One category: `dotnet test --filter "FullyQualifiedName~IntroductoryProblems"`
+- One problem: `dotnet test --filter "FullyQualifiedName~WeirdAlgorithm"`
 
 ### Clean Architecture
 
-- **CSES.Core**: Shared interfaces and utilities (`ISolver` interface)
-- **CSES.Solutions**: Problem solvers, tests, and test data organized by category and problem
-  - Each problem has its own folder containing everything related to that problem
-  - Navigate to one folder to work on a complete problem
-- **CSES.Runner**: Console runner for manual testing and debugging
+- **CSES.Core**: Shared `ISolver` interface
+- **CSES.Solutions**: Problem solvers organized by category with shared test data
+- **CSES.CSharp.Runner / CSES.FSharp.Runner**: Console runners for debugging
 
 ## Auto-Discovery Alternative
 
-If you prefer to automatically run all test files without manually specifying them, you can use the `MemberData` approach in your test class:
+If you prefer to automatically run all test files without manually specifying them:
 
+**C#:**
 ```csharp
 [Theory]
 [MemberData(nameof(GetAllTests))]
@@ -265,7 +382,16 @@ public static IEnumerable<object[]> GetAllTests()
     => GetTestNumbers(TestDataFolder);
 ```
 
-This will automatically discover all `*.in` files and run tests for them.
+**F#:**
+```fsharp
+// Use the TestHelpers module from BaseSolverTests.fs
+static member GetAllTests() = TestHelpers.getTestNumbers testDataFolder
+
+[<Theory>]
+[<MemberData(nameof(ProblemNameTests.GetAllTests))>]
+member this.Test(testNumber: int) =
+    this.RunTest(testDataFolder, testNumber)
+```
 
 ## Tips
 
@@ -274,3 +400,5 @@ This will automatically discover all `*.in` files and run tests for them.
 3. Add comments explaining the algorithm if it's not obvious
 4. Consider performance for problems with large inputs
 5. Test edge cases (minimum values, maximum values, etc.)
+6. Start with C# or F# - the shared TestData makes adding the other language easy
+7. Use the console runner for debugging specific test cases with print statements
